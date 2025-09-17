@@ -1,0 +1,121 @@
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.0'
+    }
+}
+
+rootProject.allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+android {
+    // Conditional for compatibility with AGP <4.2.
+    if (project.android.hasProperty("namespace")) {
+        namespace 'com.arthenica.ffmpegkit.flutter'
+    }
+
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 24
+        targetSdkVersion 33
+        versionCode 603
+        versionName "6.0.3"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+    lintOptions {
+        disable 'GradleCompatible'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation 'com.arthenica:smart-exception-java:0.2.1'
+    implementation 'io.github.trongnhantaisacventoan:ffmpeg-kit-min-gpl:7.1.1'
+    implementation 'androidx.annotation:annotation:1.9.1'
+}
+
+
+
+publishing {
+    publications {
+        aarRelease(MavenPublication) {
+            groupId = 'io.github.trongnhantaisacventoan'  // Replace with your group ID
+            artifactId = 'ffmpeg-kit-min-gpl' // Replace with your artifact ID
+//            version = '6.0.2'                 // Replace with your version
+            version = '7.1.1'                 // Replace with your version
+
+            // Specify the AAR artifact
+//            artifact("./aarlibs/ffmpeg-kit-min-gpl-6.0-2.aar")
+            artifact("./aarlibs/ffmpeg-kit-android-min-gpl-7.1.1.aar")
+            // Include the POM file (optional)
+            pom {
+                name = "FFmpeg Kit for Android"
+                url = "https://github.com/trongnhantaisacventoan/ffmpeg-kit"
+                packaging = "aar"
+                description = "FFmpeg Kit AAR Library"
+                licenses {
+                    license {
+                        name.set("GNU General Public License v3.0")
+                        url.set("https://www.gnu.org/licenses/gpl-3.0.en.html")
+                        distribution.set("repo")
+                    }
+                }
+
+                scm {
+                    connection.set("scm:git:git://github.com/trongnhantaisacventoan/ffmpeg-kit.git")
+                    developerConnection.set("scm:git:ssh://github.com:trongnhantaisacventoan/ffmpeg-kit.git")
+                    url.set("https://github.com/trongnhantaisacventoan/ffmpeg-kit")
+                }
+
+                developers {
+                    developer {
+                        id = "trongnhan136"
+                        name = "Nguyen Trong Nhan"
+                        email = "trongnhan136@gmail.com"
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "ffmpeg"
+            url = uri("../../../local-repo") // Path to your local Maven repository
+        }
+    }
+}
+
+
+
+signing {
+    useGpgCmd()
+    sign publishing.publications.aarRelease
+}
+
+
+tasks.register("publishAarLocal") {
+    dependsOn "publishAarReleasePublicationToMavenLocal"
+}
