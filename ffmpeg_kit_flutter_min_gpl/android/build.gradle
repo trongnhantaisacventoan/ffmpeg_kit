@@ -52,7 +52,7 @@ android {
 
 dependencies {
     implementation 'com.arthenica:smart-exception-java:0.2.1'
-    implementation 'io.github.trongnhantaisacventoan:ffmpeg-kit-min-gpl:7.1.1'
+    implementation 'io.github.trongnhan136:ffmpeg-kit-min-gpl:7.1.2'
     implementation 'androidx.annotation:annotation:1.9.1'
 }
 
@@ -61,14 +61,14 @@ dependencies {
 publishing {
     publications {
         aarRelease(MavenPublication) {
-            groupId = 'io.github.trongnhantaisacventoan'  // Replace with your group ID
+            groupId = 'io.github.trongnhan136'  // Replace with your group ID
             artifactId = 'ffmpeg-kit-min-gpl' // Replace with your artifact ID
 //            version = '6.0.2'                 // Replace with your version
-            version = '7.1.1'                 // Replace with your version
+            version = '7.1.2'                 // Replace with your version
 
             // Specify the AAR artifact
 //            artifact("./aarlibs/ffmpeg-kit-min-gpl-6.0-2.aar")
-            artifact("./aarlibs/ffmpeg-kit-android-min-gpl-7.1.1.aar")
+            artifact("./aarlibs/ffmpeg-kit.aar")
             // Include the POM file (optional)
             pom {
                 name = "FFmpeg Kit for Android"

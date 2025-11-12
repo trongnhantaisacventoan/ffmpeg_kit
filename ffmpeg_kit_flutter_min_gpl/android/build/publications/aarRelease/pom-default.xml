@@ -2,15 +2,30 @@
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.nhannt.ffmpegkit</groupId>
+  <groupId>io.github.trongnhan136</groupId>
   <artifactId>ffmpeg-kit-min-gpl</artifactId>
-  <version>7.1.1</version>
+  <version>7.1.2</version>
   <packaging>aar</packaging>
+  <name>FFmpeg Kit for Android</name>
   <description>FFmpeg Kit AAR Library</description>
+  <url>https://github.com/trongnhantaisacventoan/ffmpeg-kit</url>
+  <licenses>
+    <license>
+      <name>GNU General Public License v3.0</name>
+      <url>https://www.gnu.org/licenses/gpl-3.0.en.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
   <developers>
     <developer>
-      <id>example</id>
-      <name>Your Name</name>
+      <id>trongnhan136</id>
+      <name>Nguyen Trong Nhan</name>
+      <email>trongnhan136@gmail.com</email>
     </developer>
   </developers>
+  <scm>
+    <connection>scm:git:git://github.com/trongnhantaisacventoan/ffmpeg-kit.git</connection>
+    <developerConnection>scm:git:ssh://github.com:trongnhantaisacventoan/ffmpeg-kit.git</developerConnection>
+    <url>https://github.com/trongnhantaisacventoan/ffmpeg-kit</url>
+  </scm>
 </project>
