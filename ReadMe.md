@@ -60,3 +60,27 @@ declare "$BUILD_COMPLETED_FLAG=1"
 fi
 
 ```
+
+## PUBLISH MAVEN
+
+1. replace xxx with passpharse of gpg
+
+```
+signing.gnupg.passphrase=xxx
+```
+
+2. run build local
+
+```
+repositories {
+        maven {
+            name = "ffmpeg"
+            url = uri("../../../local-repo") // Path to your local Maven repository
+        }
+    }
+
+```
+
+3. go to local-repo zip folder "io"
+4. login https://central.sonatype.com/publishing => login use github account is trongnhan136@gmail.com not use gmail account
+5. upload zip to deployment
