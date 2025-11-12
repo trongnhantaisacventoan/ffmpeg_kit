@@ -3,7 +3,8 @@ git clone https://github.com/AliAkhgar/ffmpeg-kit-16KB.git
 export ANDROID_SDK_ROOT=/Users/nhannguyentrong/Library/Android/sdk
 export ANDROID_NDK_ROOT=/Users/nhannguyentrong/Library/Android/sdk/ndk/25.1.8937393
 
-./android.sh -d --full --enable-gpl --disable-arm-v7a
+./android.sh -d --full --enable-gpl --disable-arm-v7a --disable-gnutls
+./android.sh -d --full --enable-gpl --disable-lib-gnutls --disable-arm-v7a
 
 # other error
 
@@ -45,4 +46,17 @@ fix by make sure bison from homebrew is used. run command before build
 
 ```
 export PATH="$(brew --prefix bison)/bin:$PATH"
+```
+
+# ffmpeg.sh
+
+main-android.sh line 201 -> 204 => completed not increase so loop
+
+```
+else
+((completed += 1))
+declare "$BUILD_COMPLETED_FLAG=1"
+      echo -e "INFO: Skipping $library, dependencies built=$run, already built=${!BUILD_COMPLETED_FLAG}\n" 1>>"${BASEDIR}"/build.log 2>&1
+fi
+
 ```
