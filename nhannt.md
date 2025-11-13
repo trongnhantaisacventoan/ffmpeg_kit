@@ -1,5 +1,7 @@
 # step build
 
+tail -f -n 100 build.log
+
 . remove -d if not build debug
 
 ```
@@ -106,7 +108,7 @@ Building arm64 platform targeting iOS SDK 12.1 and Mac Catalyst 14.0
 
 # build full have error with gnutls
 
-./ios.sh -d --full --enable-gpl --disable-lib-srt --disable-lib-openssl
+./ios.sh --xcframework --full --enable-gpl --disable-lib-srt --disable-lib-openssl
 
 1. "iconv.m4" not found by auto config. so need specific folder by command. change folder base on machine
    -> problem is build LAME error
@@ -155,4 +157,36 @@ libpng)
 5. leptonica
    just remove giflib and run again
 
-6.
+6. x265.sh
+
+them dieu kien
+
+```
+x86_64)
+  # iOS simulator
+  ASM_OPTIONS="-DENABLE_ASSEMBLY=0 -DCROSS_COMPILE_ARM=0"
+  ;;
+
+```
+
+```
+
+# SET BUILD OPTIONS
+case ${ARCH} in
+armv7 | armv7s)
+  ASM_OPTIONS="-DENABLE_ASSEMBLY=1 -DCROSS_COMPILE_ARM=1"
+  ;;
+arm64*)
+  ASM_OPTIONS="-DENABLE_ASSEMBLY=0 -DCROSS_COMPILE_ARM=1"
+  ;;
+x86-64-mac-catalyst)
+  ASM_OPTIONS="-DENABLE_ASSEMBLY=0 -DCROSS_COMPILE_ARM=0"
+  ;;
+i386)
+  ASM_OPTIONS="-DENABLE_ASSEMBLY=0 -DCROSS_COMPILE_ARM=0"
+  ;;
+*)
+  ASM_OPTIONS="-DENABLE_ASSEMBLY=0 -DCROSS_COMPILE_ARM=0"
+  ;;
+esac
+```
