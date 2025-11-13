@@ -1,9 +1,19 @@
-git clone https://github.com/AliAkhgar/ffmpeg-kit-16KB.git
+# step build
 
+. remove -d if not build debug
+
+```
+git clone https://github.com/AliAkhgar/ffmpeg-kit-16KB.git
 export ANDROID_SDK_ROOT=/Users/nhannguyentrong/Library/Android/sdk
 export ANDROID_NDK_ROOT=/Users/nhannguyentrong/Library/Android/sdk/ndk/25.1.8937393
 
 ./android.sh -d --full --enable-gpl --disable-arm-v7a
+
+./android.sh -d --enable-android-media-codec --enable-android-zlib
+
+# build full -> openssl not support x86 so disabled it
+./android.sh -d --full --enable-gpl --disable-arm-v7a --disable-lib-srt --disable-lib-openssl
+```
 
 # other error
 
@@ -47,6 +57,8 @@ fix by make sure bison from homebrew is used. run command before build
 export PATH="$(brew --prefix bison)/bin:$PATH"
 ```
 
+### GnuTLS and OpenSSL must not be enabled at the same time.
+
 # ffmpeg.sh
 
 REMOVE
@@ -83,3 +95,64 @@ repositories {
 3. go to local-repo zip folder "io"
 4. login https://central.sonatype.com/publishing => login use github account is trongnhan136@gmail.com not use gmail account
 5. upload zip to deployment
+
+---
+
+# ios
+
+Building arm64 platform targeting iOS SDK 12.1 and Mac Catalyst 14.0
+
+./ios.sh --xcframework --enable-ios-audiotoolbox --enable-ios-avfoundation --enable-ios-bzip2 --enable-ios-libiconv --enable-ios-videotoolbox --enable-ios-zlib
+
+# build full have error with gnutls
+
+./ios.sh -d --full --enable-gpl --disable-lib-srt --disable-lib-openssl
+
+1. "iconv.m4" not found by auto config. so need specific folder by command. change folder base on machine
+   -> problem is build LAME error
+   auto config variable is ACLOCAL_PATH
+
+```
+export ACLOCAL_PATH="/usr/local/Cellar/gettext/0.26_1/share/gettext/m4:/usr/local/share/aclocal"
+```
+
+2. fix cmake like android above
+   for x265 => tools/patch/cmake/x265/ change cmakelist here
+
+3. libpng => sources.sh change to 1.6.50
+
+```
+libpng)
+    SOURCE_REPO_URL="https://github.com/arthenica/libpng"
+    SOURCE_ID="v1.6.50"
+    SOURCE_TYPE="TAG"
+```
+
+4. gnutls
+   comment if got error relate -march=all
+   line 13219
+
+```
+# # Check if the assembler supports -march=all
+# if test "$hw_accel" = aarch64; then
+#   AARCH64_CCASFLAGS="-Wa,-march=all"
+#   { printf "%s\n" "$as_me:${as_lineno-$LINENO}: checking whether the compiler supports -Wa,-march=all" >&5
+# printf %s "checking whether the compiler supports -Wa,-march=all... " >&6; }
+#   : > conftest.s
+#   if "$CCAS" "$AARCH64_CCASFLAGS" -c conftest.s >/dev/null 2>&1; then
+#     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+# printf "%s\n" "yes" >&6; }
+#   else
+#     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: no" >&5
+# printf "%s\n" "no" >&6; }
+#     AARCH64_CCASFLAGS=
+#   fi
+
+# fi
+
+```
+
+5. leptonica
+   just remove giflib and run again
+
+6.
