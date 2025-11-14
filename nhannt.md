@@ -104,6 +104,13 @@ repositories {
 
 Building arm64 platform targeting iOS SDK 12.1 and Mac Catalyst 14.0
 
+goi cai nay de bo qua build lau
+
+```
+export SKIP_ffmpeg=1
+export SKIP_ffmpeg_kit=1
+```
+
 ./ios.sh --xcframework --enable-ios-audiotoolbox --enable-ios-avfoundation --enable-ios-bzip2 --enable-ios-libiconv --enable-ios-videotoolbox --enable-ios-zlib
 
 # build full have error with gnutls
@@ -179,6 +186,10 @@ armv7 | armv7s)
 arm64*)
   ASM_OPTIONS="-DENABLE_ASSEMBLY=0 -DCROSS_COMPILE_ARM=1"
   ;;
+x86_64)
+  # iOS simulator
+  ASM_OPTIONS="-DENABLE_ASSEMBLY=0 -DCROSS_COMPILE_ARM=0"
+  ;;
 x86-64-mac-catalyst)
   ASM_OPTIONS="-DENABLE_ASSEMBLY=0 -DCROSS_COMPILE_ARM=0"
   ;;
@@ -186,7 +197,32 @@ i386)
   ASM_OPTIONS="-DENABLE_ASSEMBLY=0 -DCROSS_COMPILE_ARM=0"
   ;;
 *)
-  ASM_OPTIONS="-DENABLE_ASSEMBLY=0 -DCROSS_COMPILE_ARM=0"
+  ASM_OPTIONS="-DENABLE_ASSEMBLY=1 -DCROSS_COMPILE_ARM=0"
   ;;
 esac
+```
+
+7. liencese error
+
+replace this method
+
+```
+# 1 - library index
+get_external_library_license_path() {
+  case $1 in
+  1) echo "${BASEDIR}/src/$(get_library_name "$1")/LICENSE.TXT" ;;
+  12) echo "${BASEDIR}/src/$(get_library_name "$1")/Copyright" ;;
+  35) echo "${BASEDIR}/src/$(get_library_name "$1")/LICENSE.txt" ;;
+  3 | 42) echo "${BASEDIR}/src/$(get_library_name "$1")/COPYING.LESSERv3" ;;
+  5 | 44) echo "${BASEDIR}/src/$(get_library_name "$1")/$(get_library_name "$1")/COPYING" ;;
+  19) echo "${BASEDIR}/src/$(get_library_name "$1")/$(get_library_name "$1")/LICENSE" ;;
+  26) echo "${BASEDIR}/src/$(get_library_name "$1")/COPYING.LGPL" ;;
+  28 | 38) echo "${BASEDIR}/src/$(get_library_name "$1")/LICENSE.md" ;;
+  30) echo "${BASEDIR}/src/$(get_library_name "$1")/COPYING.txt" ;;
+  43) echo "${BASEDIR}/src/$(get_library_name "$1")/COPYRIGHT" ;;
+  46) echo "${BASEDIR}/src/$(get_library_name "$1")/leptonica-license.txt" ;;
+  10 | 13 | 17 | 21 | 27 | 31 | 32 | 36 | 40 | 49) echo "${BASEDIR}/src/$(get_library_name "$1")/LICENSE" ;;
+  *) echo "${BASEDIR}/src/$(get_library_name "$1")/COPYING" ;;
+  esac
+}
 ```
