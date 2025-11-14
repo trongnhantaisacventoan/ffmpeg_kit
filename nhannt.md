@@ -226,3 +226,5 @@ get_external_library_license_path() {
   esac
 }
 ```
+
+## build full in my drive google
