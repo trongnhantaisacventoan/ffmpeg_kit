@@ -9,6 +9,8 @@ git clone https://github.com/AliAkhgar/ffmpeg-kit-16KB.git
 export ANDROID_SDK_ROOT=/Users/nhannguyentrong/Library/Android/sdk
 export ANDROID_NDK_ROOT=/Users/nhannguyentrong/Library/Android/sdk/ndk/25.1.8937393
 
+ ./android.sh --enable-android-media-codec --enable-android-zlib --enable-xvidcore --enable-libvidstab --enable-x264 --enable-x265 --disable-arm-v7a
+
 ./android.sh -d --full --enable-gpl --disable-arm-v7a
 
 ./android.sh -d --enable-android-media-codec --enable-android-zlib
@@ -83,6 +85,24 @@ signing.gnupg.passphrase=xxx
 ```
 
 2. run build local
+
+brew install gpg
+
+```
+gpg --full-generate-key
+(1) RSA and RSA
+
+4096
+
+0
+
+gpg --list-secret-keys --keyid-format LONG
+
+gpg --armor --export FF8C15F9EEAC7D49
+copy roi submit
+https://keyserver.ubuntu.com/#
+
+```
 
 ```
 repositories {
