@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.trongnhan136</groupId>
   <artifactId>ffmpeg-kit-min-gpl</artifactId>
-  <version>7.1.2</version>
+  <version>7.1.4</version>
   <packaging>aar</packaging>
   <name>FFmpeg Kit for Android</name>
   <description>FFmpeg Kit AAR Library</description>
