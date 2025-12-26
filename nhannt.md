@@ -4,6 +4,13 @@ tail -f -n 100 build.log
 
 . remove -d if not build debug
 
+. NDK r25 for 16kb. ffmpegkit only build correct on r25 sdk, because x265 use libc++\_shared.so
+. NDK > r25 have issue with libc++\_shared.so
+
+```
+https://ci.android.com/builds/branches/aosp-ndk-r25-release/grid?legacy=1
+```
+
 ```
 git clone https://github.com/AliAkhgar/ffmpeg-kit-16KB.git
 export ANDROID_SDK_ROOT=/Users/nhannguyentrong/Library/Android/sdk
