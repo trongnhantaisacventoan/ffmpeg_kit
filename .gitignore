@@ -1,1 +1,6 @@
 ffmpeg_kit_flutter_min_gpl/local-repo
+gradle.properties
+local.properties
+ffmpeg_kit_flutter_min_gpl/android/.gradle
+ffmpeg_kit_flutter_min_gpl/android/.idea
+ffmpeg_kit_flutter_min_gpl/android/build
